@@ -1,0 +1,562 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+        "cidrblockforvpc": {
+            "Description": "Enter the cidr block for VPC",
+            "Type": "String",
+            "Default": "192.168.0.0/16"
+        },
+        "availabilityzoneforwebsubnet": {
+            "Description": "Enter the AvailabilityZone for websubnet",
+            "Type": "AWS::EC2::AvailabilityZone::Name",
+            "Default": "us-west-2a"
+        },
+        "cidrblockforwebsubnet": {
+            "Description": "Enter the cidr block for websubnet",
+            "Type": "String",
+            "Default": "192.168.0.0/24"
+        },
+        "availabilityzoneforappsubnet": {
+            "Description": "Enter the AvailabilityZone for appsubnet",
+            "Type": "AWS::EC2::AvailabilityZone::Name",
+            "Default": "us-west-2a"
+        },
+        "cidrblockforappsubnet": {
+            "Description": "Enter the cidr block for appsubnet",
+            "Type": "String",
+            "Default": "192.168.1.0/24"
+        },
+        "availabilityzonefordatasubnet": {
+            "Description": "Enter the AvailabilityZone for datasubnet",
+            "Type": "AWS::EC2::AvailabilityZone::Name",
+            "Default": "us-west-2b"
+        },
+        "cidrblockfordatasubnet": {
+            "Description": "Enter the cidr block for datasubnet",
+            "Type": "String",
+            "Default": "192.168.2.0/24"
+        },
+        "availabilityzoneformanagementsubnet": {
+            "Description": "Enter the AvailabilityZone for managementsubnet",
+            "Type": "AWS::EC2::AvailabilityZone::Name",
+            "Default": "us-west-2b"
+        },
+        "cidrblockformanagementsubnet": {
+            "Description": "Enter the cidr block for managementsubnet",
+            "Type": "String",
+            "Default": "192.168.3.0/24"
+        },
+        "keynameforwebserver": {
+            "Description": "Select the key name for webserver",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "Default": "new"
+        },
+        "imageidforwebserver": {
+            "Description": "Enter the image id for webserver",
+            "Type": "String",
+            "Default": "ami-076e276d85f524150"
+        },
+        "instancetypeforwebserver": {
+            "Description": "Select the instance type for webserver",
+            "Type": "String",
+            "AllowedValues": [
+                "t2.micro",
+                "t2.small",
+                "t2.medium"
+            ],
+            "Default": "t2.micro"
+        },
+        "keynameformanagementserver": {
+            "Description": "Select the key name for managementserver",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "Default": "new"
+        },
+        "imageidformanagementserver": {
+            "Description": "Enter the image id for managementserver",
+            "Type": "String",
+            "Default": "ami-076e276d85f524150"
+        },
+        "instancetypeformanagementserver": {
+            "Description": "Select the instance type for managementserver",
+            "Type": "String",
+            "AllowedValues": [
+                "t2.micro",
+                "t2.small",
+                "t2.medium"
+            ],
+            "Default": "t2.micro"
+        },
+        "keynameforappserver": {
+            "Description": "Select the key name for appserver",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "Default": "new"
+        },
+        "imageidforappserver": {
+            "Description": "Enter the image id for apperver",
+            "Type": "String",
+            "Default": "ami-076e276d85f524150"
+        },
+        "instancetypeforappserver": {
+            "Description": "Select the instance type for appserver",
+            "Type": "String",
+            "AllowedValues": [
+                "t2.micro",
+                "t2.small",
+                "t2.medium"
+            ],
+            "Default": "t2.micro"
+        },
+        "keynamefordataserver": {
+            "Description": "Select the key name for dataserver",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "Default": "new"
+        },
+        "imageidfordataserver": {
+            "Description": "Enter the image id for dataerver",
+            "Type": "String",
+            "Default": "ami-076e276d85f524150"
+        },
+        "instancetypefordataserver": {
+            "Description": "Select the instance type for dataserver",
+            "Type": "String",
+            "AllowedValues": [
+                "t2.micro",
+                "t2.small",
+                "t2.medium"
+            ],
+            "Default": "t2.micro"
+        }
+    },
+    "Resources": {
+        "myvpc": {
+            "Type": "AWS::EC2::VPC",
+            "Properties": {
+                "CidrBlock": {
+                    "Ref": "cidrblockforvpc"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "myvpc"
+                    }
+                ]
+            }
+        },
+        "websubnet": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "AvailabilityZone": {
+                    "Ref": "availabilityzoneforwebsubnet"
+                },
+                "VpcId": {
+                    "Ref": "myvpc"
+                },
+                "CidrBlock": "192.168.0.0/24",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Websubnet"
+                    }
+                ]
+            }
+        },
+        "appsubnet": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "AvailabilityZone": {
+                    "Ref": "availabilityzoneforappsubnet"
+                },
+                "VpcId": {
+                    "Ref": "myvpc"
+                },
+                "CidrBlock": {
+                    "Ref": "cidrblockforappsubnet"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "appsubnet"
+                    }
+                ]
+            }
+        },
+        "datasubnet": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "AvailabilityZone": {
+                    "Ref": "availabilityzonefordatasubnet"
+                },
+                "VpcId": {
+                    "Ref": "myvpc"
+                },
+                "CidrBlock": {
+                    "Ref": "cidrblockfordatasubnet"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "datasubnet"
+                    }
+                ]
+            }
+        },
+        "managementsubnet": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "AvailabilityZone": {
+                    "Ref": "availabilityzoneformanagementsubnet"
+                },
+                "VpcId": {
+                    "Ref": "myvpc"
+                },
+                "CidrBlock": {
+                    "Ref": "cidrblockformanagementsubnet"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "managementsubnet"
+                    }
+                ]
+            }
+        },
+        "myigw": {
+            "Type": "AWS::EC2::InternetGateway",
+            "Properties": {
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "myigw"
+                    }
+                ]
+            }
+        },
+        "AttachGateway": {
+            "Type": "AWS::EC2::VPCGatewayAttachment",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "myvpc"
+                },
+                "InternetGatewayId": {
+                    "Ref": "myigw"
+                }
+            }
+        },
+        "myroute": {
+            "Type": "AWS::EC2::Route",
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "publicroutetable"
+                },
+                "DestinationCidrBlock": "0.0.0.0/0",
+                "GatewayId": {
+                    "Ref": "myigw"
+                }
+            }
+        },
+        "publicroutetable": {
+            "Type": "AWS::EC2::RouteTable",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "myvpc"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "publicroutetable"
+                    }
+                ]
+            }
+        },
+        "privateroutetable": {
+            "Type": "AWS::EC2::RouteTable",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "myvpc"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "privateroutetable"
+                    }
+                ]
+            }
+        },
+        "websubnetassociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "websubnet"
+                },
+                "RouteTableId": {
+                    "Ref": "publicroutetable"
+                }
+            }
+        },
+        "managementsubnetassociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "managementsubnet"
+                },
+                "RouteTableId": {
+                    "Ref": "publicroutetable"
+                }
+            }
+        },
+        "appsubnetassociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "appsubnet"
+                },
+                "RouteTableId": {
+                    "Ref": "privateroutetable"
+                }
+            }
+        },
+        "datasubnetassociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "datasubnet"
+                },
+                "RouteTableId": {
+                    "Ref": "privateroutetable"
+                }
+            }
+        },
+        "mysg": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "this is my security group",
+                "VpcId": {
+                    "Ref": "myvpc"
+                },
+                "SecurityGroupIngress": [
+                    {
+                        "CidrIp": "0.0.0.0/0",
+                        "FromPort": 22,
+                        "IpProtocol": "tcp",
+                        "ToPort": 22
+                    }
+                ],
+                "SecurityGroupEgress": [
+                    {
+                        "CidrIp": "0.0.0.0/0",
+                        "IpProtocol": "-1"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "mysg"
+                    }
+                ]
+            }
+        },
+        "webserver": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "KeyName": {
+                    "Ref": "keynameforwebserver"
+                },
+                "ImageId": {
+                    "Ref": "imageidforwebserver"
+                },
+                "InstanceType": {
+                    "Ref": "instancetypeforwebserver"
+                },
+                "NetworkInterfaces": [
+                    {
+                        "AssociatePublicIpAddress": "true",
+                        "DeviceIndex": "0",
+                        "SubnetId": {
+                            "Ref": "websubnet"
+                        },
+                        "GroupSet": [
+                            {
+                                "Ref": "mysg"
+                            }
+                        ]
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "webserver"
+                    }
+                ]
+            }
+        },
+        "managementserver": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "KeyName": {
+                    "Ref": "keynameformanagementserver"
+                },
+                "ImageId": {
+                    "Ref": "imageidformanagementserver"
+                },
+                "InstanceType": {
+                    "Ref": "instancetypeformanagementserver"
+                },
+                "NetworkInterfaces": [
+                    {
+                        "AssociatePublicIpAddress": "true",
+                        "DeviceIndex": "0",
+                        "SubnetId": {
+                            "Ref": "managementsubnet"
+                        },
+                        "GroupSet": [
+                            {
+                                "Ref": "mysg"
+                            }
+                        ]
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "managementserver"
+                    }
+                ]
+            }
+        },
+        "appserver": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "KeyName": {
+                    "Ref": "keynameforappserver"
+                },
+                "ImageId": {
+                    "Ref": "imageidforappserver"
+                },
+                "InstanceType": {
+                    "Ref": "instancetypeforappserver"
+                },
+                "NetworkInterfaces": [
+                    {
+                        "AssociatePublicIpAddress": "false",
+                        "DeviceIndex": "0",
+                        "SubnetId": {
+                            "Ref": "appsubnet"
+                        },
+                        "GroupSet": [
+                            {
+                                "Ref": "mysg"
+                            }
+                        ]
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "appserver"
+                    }
+                ]
+            }
+        },
+        "dataserver": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "KeyName": {
+                    "Ref": "keynamefordataserver"
+                },
+                "ImageId": {
+                    "Ref": "imageidfordataserver"
+                },
+                "InstanceType": {
+                    "Ref": "instancetypefordataserver"
+                },
+                "NetworkInterfaces": [
+                    {
+                        "AssociatePublicIpAddress": "false",
+                        "DeviceIndex": "0",
+                        "SubnetId": {
+                            "Ref": "datasubnet"
+                        },
+                        "GroupSet": [
+                            {
+                                "Ref": "mysg"
+                            }
+                        ]
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "dataserver"
+                    }
+                ]
+            }
+        }
+    },
+    "Outputs": {
+        "vpcid": {
+            "Value": {
+                "Ref": "myvpc"
+            }
+        },
+        "websubnetid": {
+            "Value": {
+                "Ref": "websubnet"
+            }
+        },
+        "appsubnetid": {
+            "Value": {
+                "Ref": "appsubnet"
+            }
+        },
+        "datasubnetid": {
+            "Value": {
+                "Ref": "datasubnet"
+            }
+        },
+        "managementsubnetid": {
+            "Value": {
+                "Ref": "managementsubnet"
+            }
+        },
+        "internetgatewayid": {
+            "Value": {
+                "Ref": "myigw"
+            }
+        },
+        "publicroutetableid": {
+            "Value": {
+                "Ref": "publicroutetable"
+            }
+        },
+        "privateroutetableid": {
+            "Value": {
+                "Ref": "privateroutetable"
+            }
+        },
+        "securitygroupid": {
+            "Value": {
+                "Ref": "mysg"
+            }
+        },
+        "webinstanceid": {
+            "Value": {
+                "Ref": "webserver"
+            }
+        },
+        "managementinstanceid": {
+            "Value": {
+                "Ref": "managementserver"
+            }
+        },
+        "appinstanceid": {
+            "Value": {
+                "Ref": "appserver"
+            }
+        },
+        "datainstanceid": {
+            "Value": {
+                "Ref": "dataserver"
+            }
+        }
+    }
+}
