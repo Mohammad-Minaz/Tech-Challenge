@@ -1,0 +1,6 @@
+** To list out all the VM in the resourse group.
+
+
+The program has created in such a way that, after running the program it will show all the resourse group in the azure account.
+then it will ask to select the one resourse group from the above. then based on the tag key and tag value provided by the user 
+it will show all the VM present on that resourse group.

@@ -1,0 +1,18 @@
+CLDADMINTESTINGOPSAUTOMATOR03 golden_image]$ python3.7 test.py
+[
+    "1] Practice-Jenkins",
+    "2] NetworkWatcherRG"
+]
+
+ 
+
+ Enter the name of the resource group from the above list: Practice-Jenkins
+
+ 
+
+ Enter the key of the resource: Environment
+
+ 
+
+ Enter the value of the resource:Dev
+['1] /subscriptions/e2ac744e-bab4-4eba-896f-158d3e0cb199/resourceGroups/Practice-Jenkins/providers/Microsoft.Compute/virtualMachines/minaz-node', '2] /subscriptions/e2ac744e-bab4-4eba-896f-158d3e0cb199/resourceGroups/Practice-Jenkins/providers/Microsoft.Compute/virtualMachines/master']
