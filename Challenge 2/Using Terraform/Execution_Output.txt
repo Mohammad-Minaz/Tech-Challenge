@@ -1,0 +1,176 @@
+ubuntu@ip-172-31-28-157:~/test-aws$ terraform apply
+var.option_type
+  Please enter the option to filter out the instance
+
+  Enter a value: instance-id
+
+var.option_value
+  Please enter the option value to filter out the instance
+
+  Enter a value: i-07334e6a4d3f5eb0d
+
+var.region
+  Please enter the region where your instance is located
+
+  Enter a value: us-west-2
+
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # null_resource.test-demo will be created
+  + resource "null_resource" "test-demo" {
+      + id = (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+null_resource.test-demo: Creating...
+null_resource.test-demo: Provisioning with 'local-exec'...
+null_resource.test-demo (local-exec): Executing: ["/bin/sh" "-c" "aws ec2 describe-instances --instance-id i-07334e6a4d3f5eb0d"]
+null_resource.test-demo (local-exec): {
+null_resource.test-demo (local-exec):     "Reservations": [
+null_resource.test-demo (local-exec):         {
+null_resource.test-demo (local-exec):             "Groups": [],
+null_resource.test-demo (local-exec):             "Instances": [
+null_resource.test-demo (local-exec):                 {
+null_resource.test-demo (local-exec):                     "AmiLaunchIndex": 0,
+null_resource.test-demo (local-exec):                     "ImageId": "ami-090717c950a5c34d3",
+null_resource.test-demo (local-exec):                     "InstanceId": "i-07334e6a4d3f5eb0d",
+null_resource.test-demo (local-exec):                     "InstanceType": "t2.micro",
+null_resource.test-demo (local-exec):                     "KeyName": "KPMG",
+null_resource.test-demo (local-exec):                     "LaunchTime": "2021-05-19T10:42:37.000Z",
+null_resource.test-demo (local-exec):                     "Monitoring": {
+null_resource.test-demo (local-exec):                         "State": "disabled"
+null_resource.test-demo (local-exec):                     },
+null_resource.test-demo (local-exec):                     "Placement": {
+null_resource.test-demo (local-exec):                         "AvailabilityZone": "us-west-2a",
+null_resource.test-demo (local-exec):                         "GroupName": "",
+null_resource.test-demo (local-exec):                         "Tenancy": "default"
+null_resource.test-demo (local-exec):                     },
+null_resource.test-demo (local-exec):                     "PrivateDnsName": "ip-172-31-28-157.us-west-2.compute.internal",
+null_resource.test-demo (local-exec):                     "PrivateIpAddress": "172.31.28.157",
+null_resource.test-demo (local-exec):                     "ProductCodes": [],
+null_resource.test-demo (local-exec):                     "PublicDnsName": "ec2-34-222-65-23.us-west-2.compute.amazonaws.com",
+null_resource.test-demo (local-exec):                     "PublicIpAddress": "34.222.65.23",
+null_resource.test-demo (local-exec):                     "State": {
+null_resource.test-demo (local-exec):                         "Code": 16,
+null_resource.test-demo (local-exec):                         "Name": "running"
+null_resource.test-demo (local-exec):                     },
+null_resource.test-demo (local-exec):                     "StateTransitionReason": "",
+null_resource.test-demo (local-exec):                     "SubnetId": "subnet-ca4b47b3",
+null_resource.test-demo (local-exec):                     "VpcId": "vpc-6db30015",
+null_resource.test-demo (local-exec):                     "Architecture": "x86_64",
+null_resource.test-demo (local-exec):                     "BlockDeviceMappings": [
+null_resource.test-demo (local-exec):                         {
+null_resource.test-demo (local-exec):                             "DeviceName": "/dev/sda1",
+null_resource.test-demo (local-exec):                             "Ebs": {
+null_resource.test-demo (local-exec):                                 "AttachTime": "2021-05-19T10:42:38.000Z",
+null_resource.test-demo (local-exec):                                 "DeleteOnTermination": true,
+null_resource.test-demo (local-exec):                                 "Status": "attached",
+null_resource.test-demo (local-exec):                                 "VolumeId": "vol-042494bcda99ea9e6"
+null_resource.test-demo (local-exec):                             }
+null_resource.test-demo (local-exec):                         }
+null_resource.test-demo (local-exec):                     ],
+null_resource.test-demo (local-exec):                     "ClientToken": "",
+null_resource.test-demo (local-exec):                     "EbsOptimized": false,
+null_resource.test-demo (local-exec):                     "EnaSupport": true,
+null_resource.test-demo (local-exec):                     "Hypervisor": "xen",
+null_resource.test-demo (local-exec):                     "NetworkInterfaces": [
+null_resource.test-demo (local-exec):                         {
+null_resource.test-demo (local-exec):                             "Association": {
+null_resource.test-demo (local-exec):                                 "IpOwnerId": "amazon",
+null_resource.test-demo (local-exec):                                 "PublicDnsName": "ec2-34-222-65-23.us-west-2.compute.amazonaws.com",
+null_resource.test-demo (local-exec):                                 "PublicIp": "34.222.65.23"
+null_resource.test-demo (local-exec):                             },
+null_resource.test-demo (local-exec):                             "Attachment": {
+null_resource.test-demo (local-exec):                                 "AttachTime": "2021-05-19T10:42:37.000Z",
+null_resource.test-demo (local-exec):                                 "AttachmentId": "eni-attach-0af116f79a306e3e0",
+null_resource.test-demo (local-exec):                                 "DeleteOnTermination": true,
+null_resource.test-demo (local-exec):                                 "DeviceIndex": 0,
+null_resource.test-demo (local-exec):                                 "Status": "attached"
+null_resource.test-demo (local-exec):                             },
+null_resource.test-demo (local-exec):                             "Description": "",
+null_resource.test-demo (local-exec):                             "Groups": [
+null_resource.test-demo (local-exec):                                 {
+null_resource.test-demo (local-exec):                                     "GroupName": "launch-wizard-3",
+null_resource.test-demo (local-exec):                                     "GroupId": "sg-0331d476bd52f2940"
+null_resource.test-demo (local-exec):                                 }
+null_resource.test-demo (local-exec):                             ],
+null_resource.test-demo (local-exec):                             "Ipv6Addresses": [],
+null_resource.test-demo (local-exec):                             "MacAddress": "02:79:15:23:35:43",
+null_resource.test-demo (local-exec):                             "NetworkInterfaceId": "eni-08b4c3dcaf636cd7a",
+null_resource.test-demo (local-exec):                             "OwnerId": "297839315584",
+null_resource.test-demo (local-exec):                             "PrivateDnsName": "ip-172-31-28-157.us-west-2.compute.internal",
+null_resource.test-demo (local-exec):                             "PrivateIpAddress": "172.31.28.157",
+null_resource.test-demo (local-exec):                             "PrivateIpAddresses": [
+null_resource.test-demo (local-exec):                                 {
+null_resource.test-demo (local-exec):                                     "Association": {
+null_resource.test-demo (local-exec):                                         "IpOwnerId": "amazon",
+null_resource.test-demo (local-exec):                                         "PublicDnsName": "ec2-34-222-65-23.us-west-2.compute.amazonaws.com",
+null_resource.test-demo (local-exec):                                         "PublicIp": "34.222.65.23"
+null_resource.test-demo (local-exec):                                     },
+null_resource.test-demo (local-exec):                                     "Primary": true,
+null_resource.test-demo (local-exec):                                     "PrivateDnsName": "ip-172-31-28-157.us-west-2.compute.internal",
+null_resource.test-demo (local-exec):                                     "PrivateIpAddress": "172.31.28.157"
+null_resource.test-demo (local-exec):                                 }
+null_resource.test-demo (local-exec):                             ],
+null_resource.test-demo (local-exec):                             "SourceDestCheck": true,
+null_resource.test-demo (local-exec):                             "Status": "in-use",
+null_resource.test-demo (local-exec):                             "SubnetId": "subnet-ca4b47b3",
+null_resource.test-demo (local-exec):                             "VpcId": "vpc-6db30015",
+null_resource.test-demo (local-exec):                             "InterfaceType": "interface"
+null_resource.test-demo (local-exec):                         }
+null_resource.test-demo (local-exec):                     ],
+null_resource.test-demo (local-exec):                     "RootDeviceName": "/dev/sda1",
+null_resource.test-demo (local-exec):                     "RootDeviceType": "ebs",
+null_resource.test-demo (local-exec):                     "SecurityGroups": [
+null_resource.test-demo (local-exec):                         {
+null_resource.test-demo (local-exec):                             "GroupName": "launch-wizard-3",
+null_resource.test-demo (local-exec):                             "GroupId": "sg-0331d476bd52f2940"
+null_resource.test-demo (local-exec):                         }
+null_resource.test-demo (local-exec):                     ],
+null_resource.test-demo (local-exec):                     "SourceDestCheck": true,
+null_resource.test-demo (local-exec):                     "Tags": [
+null_resource.test-demo (local-exec):                         {
+null_resource.test-demo (local-exec):                             "Key": "Name",
+null_resource.test-demo (local-exec):                             "Value": "Test-VM-KPMG"
+null_resource.test-demo (local-exec):                         }
+null_resource.test-demo (local-exec):                     ],
+null_resource.test-demo (local-exec):                     "VirtualizationType": "hvm",
+null_resource.test-demo (local-exec):                     "CpuOptions": {
+null_resource.test-demo (local-exec):                         "CoreCount": 1,
+null_resource.test-demo (local-exec):                         "ThreadsPerCore": 1
+null_resource.test-demo (local-exec):                     },
+null_resource.test-demo (local-exec):                     "CapacityReservationSpecification": {
+null_resource.test-demo (local-exec):                         "CapacityReservationPreference": "open"
+null_resource.test-demo (local-exec):                     },
+null_resource.test-demo (local-exec):                     "HibernationOptions": {
+null_resource.test-demo (local-exec):                         "Configured": false
+null_resource.test-demo (local-exec):                     },
+null_resource.test-demo (local-exec):                     "MetadataOptions": {
+null_resource.test-demo (local-exec):                         "State": "applied",
+null_resource.test-demo (local-exec):                         "HttpTokens": "optional",
+null_resource.test-demo (local-exec):                         "HttpPutResponseHopLimit": 1,
+null_resource.test-demo (local-exec):                         "HttpEndpoint": "enabled"
+null_resource.test-demo (local-exec):                     }
+null_resource.test-demo (local-exec):                 }
+null_resource.test-demo (local-exec):             ],
+null_resource.test-demo (local-exec):             "OwnerId": "297839315584",
+null_resource.test-demo (local-exec):             "ReservationId": "r-01fe840a257c30e76"
+null_resource.test-demo (local-exec):         }
+null_resource.test-demo (local-exec):     ]
+null_resource.test-demo (local-exec): }
+null_resource.test-demo: Creation complete after 2s [id=607681012351437926]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+ubuntu@ip-172-31-28-157:~/test-aws$

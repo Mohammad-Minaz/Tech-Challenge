@@ -1,0 +1,50 @@
+* The Code allows for a particular data key to be retrived indivisully.
+
+Solution: We can retrived specific data indivisully by running the follwing command inside the running instance,
+
+      curl http://169.254.169.254/latest/meta-data/data_name
+
+      whre data name is the specific data that you want to retrive indivisully.
+
+
+We can also get the information/metadata of the instance based on some specific key-value pare or particular data
+by using "aws ec2 describe" command with the help of filters. 
+
+          Follwing are the command for it,
+
+           aws ec2 describe-instances --filters Name=instance-type,Values=t2.micro
+
+           aws ec2 describe-instances --filters "Name=tag-key,Values=Name"
+           aws ec2 describe-instances --filters "Name=tag-value,Values=Test-VM-KPMG"
+
+For each of the above command we are getting the desired output.
+Same way we have done for challege 2 To automate this, we can add this command in terraform local exec and by using the variables we can give the choice to user
+to get the data based on its inputs.
+
+Then the code will be like,
+
+provider "aws" {
+  region = var.region
+}
+
+resource "null_resource" "test-demo" {
+  provisioner "local-exec" {
+    command = "aws ec2 describe-instances --filters "Name=${var.filter_option},Values=${var.filter_value}"
+  }
+}
+
+variable "region" {
+  description = "Please enter the region where your instance is located"
+  type        = string
+}
+
+variable "filter_option" {
+  description = "Please enter the filer option to filter out the instance"
+  type        = string
+}
+
+variable "filter_value" {
+  description = "Please enter the filter value to filter out the instance"
+  type        = string
+}
+
