@@ -1,0 +1,22 @@
+* Key Points related to this Architecture
+
+1) Security group will only have a port 80 and 443 open for the public users.
+2) Database server will kept in a private subnet. it will communicate with the other tire by using NAT gateway or
+   bastion host.
+3) Only required route table rules will be defined for the connection between security gropus and NAT gateway/bastion host.
+4) web server will have a apache server and application will in the tomcat.
+5) application will be deployed as a war file in the tomcat server
+6) autoscaling will have the conditions defined in there rules along with the max and min no of instance count.
+7) server are kept in a two availability zone to handle the downtime if one of them get down for any resion.
+8) inernet gatway will only have a association with the puclic subnet. no diercet access for private subnet.
+9) only admin will perform all the managment related task in the management server.
+10) all the Architecture are inside a one single VPC
+11) RDS instance will be deplyed as a multi AZ. that will give the High availability for database.
+12) same security group will be attached to all the public tire.
+13) database will have its own security group with required port open for the communication.
+
+
+NOTE***
+This Architecture is 90% completed. the actual implementation involves autoacsling and load balencer which is not in the 
+final code. beacuse of some time constaint and limitation in my personal aws account i was not able to create the resources.
+that why i have not gone through with the autocaling and load balencer resources.
